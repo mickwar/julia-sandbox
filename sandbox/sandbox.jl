@@ -4,7 +4,7 @@ A = randn(3, 3)*2 + 5
 B = randn(3, 4)*1 + 0
 C = rand(4, 4)
 
-[A B; B' C]
+[A B, B' C]
 
 for i in x
     print(i, "\n")
@@ -51,7 +51,7 @@ kurtosis(Gamma(7, 0.3))
 entropy(Gamma(7, 0.3))
 
 x = readdlm("../data/T3_7_BONE.DAT")
-x = x[:; 2:end]
+x = x[:, 2:end]
 
 n = size(x, 1)
 p = size(x, 2)
