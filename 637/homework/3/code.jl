@@ -7,6 +7,8 @@ using Distributions
 n = 50;
 
 ### generate from a normal with a covariate
+srand(1)    # seed
+
 y = zeros(n);
 x = [ones(n) sort(rand(n))];
 beta = [1.5, 0.75];
@@ -36,7 +38,12 @@ mod21 = glm(y ~ 1, data2, Normal(), IdentityLink())
 mod22 = glm(y ~ x, data2, Normal(), IdentityLink())
 
 ### calculate deviance
-D11 = 
+deviance(mod11)
+betahat = coef(mod11)
+tempx = ones(n, 1)
+s2 = (y - tempx*betahat)' * (y - tempx*betahat) / (n - size(tempx, 2))
+D11 = 1/s2 * 
+
 
 
 
@@ -44,3 +51,5 @@ D11 =
 ### vim syntax highlighting problem examples
 asdf1(asdf1)    # something is messed up when inside a function
 asdf1[:, asdf1] # and within brackets
+(asdf1)         # doesn't have to be a function
+[asdf1]
