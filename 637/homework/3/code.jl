@@ -37,12 +37,24 @@ mod12 = glm(y ~ x, data1, Normal(), IdentityLink())
 mod21 = glm(y ~ 1, data2, Normal(), IdentityLink())
 mod22 = glm(y ~ x, data2, Normal(), IdentityLink())
 
-### calculate deviance
+### calculate deviance (for normal regression)
+function calc_deviance(model)
+    b = coef(model)
+    y = model.mf.df[1]  # go into model frame (mf), then into data frame (df), then 
+                        # grab the first column ([1]). this assumes univariate data
+    x = model.mm.m # model matrix
+    n = length(y)
+    s2 = (y-x*b)' * (y-x*b) / (n - length(b))
+    (1 ./ s2 * sum((y-x*b).^2))[1]
+end
 deviance(mod11)
-betahat = coef(mod11)
-tempx = ones(n, 1)
-s2 = (y - tempx*betahat)' * (y - tempx*betahat) / (n - size(tempx, 2))
-D11 = 1/s2 * 
+deviance(mod12)
+deviance(mod21)
+deviance(mod22)
+calc_deviance(mod11)
+calc_deviance(mod12)
+calc_deviance(mod21)
+calc_deviance(mod22)
 
 
 
