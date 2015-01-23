@@ -69,7 +69,7 @@ deviance(mod22)
 d11 - d12
 d21 - d22
 1 - cdf(Chisq(1), d11 - d12)
-1 - cdf(Chisq(1), d21 - d22)
+1 - cdf(Chisq(1), d21 - d12)
 
 
 
