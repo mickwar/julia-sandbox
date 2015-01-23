@@ -44,21 +44,32 @@ function calc_deviance(model)
                         # grab the first column ([1]). this assumes univariate data
     x = model.mm.m # model matrix
     n = length(y)
-    s2 = (y-x*b)' * (y-x*b) / (n - length(b))
-    (1 ./ s2 * sum((y-x*b).^2))[1]
+#   s2 = (y-x*b)' * (y-x*b) / (n - length(b))   # the scaling parameter in the deviance is fixed to be 1
+#   (1 ./ s2 * sum((y-x*b).^2))[1]
+    sum((y-x*b).^2)
 end
 
-calc_deviance(mod11)
-calc_deviance(mod12)
-calc_deviance(mod21)
-calc_deviance(mod22)
+d11 = calc_deviance(mod11)
+d12 = calc_deviance(mod12)
+d21 = calc_deviance(mod21)
+d22 = calc_deviance(mod22)
 
-### this "deviance" is sigma^2 * D, not just D
-# deviance(mod11)
-# deviance(mod12)
-# deviance(mod21)
-# deviance(mod22)
+# built-in deviance function
+deviance(mod11)
+deviance(mod12)
+deviance(mod21)
+deviance(mod22)
 
+1-cdf(Chisq(n-1), d11)
+1-cdf(Chisq(n-2), d12)
+1-cdf(Chisq(n-1), d21)
+1-cdf(Chisq(n-2), d22)
+
+# compare models
+d11 - d12
+d21 - d22
+1 - cdf(Chisq(1), d11 - d12)
+1 - cdf(Chisq(1), d21 - d22)
 
 
 
