@@ -12,7 +12,8 @@ end
 plot(x, y)
 
 subset = sort(unique(rand(1:n, 100)))
-plot(x[subset], y[subset,:])
+plot(x[subset], y[subset,:], "r")
+oplot(x, y, "b--")
 
 ### adjusted mean
 ystar = y[2:end,] + y[1]/(n-1)
